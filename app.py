@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Api
-from resources.hotel import Hoteis, Hotel
+from resources.hotel_resource import Hoteis, Hotel
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
