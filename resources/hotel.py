@@ -85,4 +85,4 @@ class Hotel(Resource):
     def delete(self, hotel_id):
      global hoteis
      hoteis = [hotel for hotel in hoteis if hotel['hotel_id'] != hotel_id]
-     return {'message'}
+     return {'message': 'Hotel deleted.'}
