@@ -35,8 +35,8 @@ class Hoteis(Resource):
 class Hotel(Resource):
 
     argumentos = reqparse.RequestParser()
-    argumentos.add_argument("nome")
-    argumentos.add_argument("estrelas")
+    argumentos.add_argument("nome", type=str, required=True, help="The field 'nome' cannot be left blank")
+    argumentos.add_argument("estrelas", type=str, required=True, help="The field 'nome' cannot be left blank")
     argumentos.add_argument("diaria")
     argumentos.add_argument("cidade")
 
@@ -59,7 +59,10 @@ class Hotel(Resource):
 
         dados = Hotel.argumentos.parse_args()
         hotel =  HotelModel(hotel_id, **dados)
-        hotel.save_hotel()
+        try:
+            hotel.save_hotel()
+        except:
+            return {"message" : "Ocorreu um erro interno"}, 500
         return hotel.json()
 
 
@@ -73,7 +76,10 @@ class Hotel(Resource):
             return hotel_encontrado.json(), 200
 
         hotel = HotelModel(hotel_id, **dados)
-        hotel.save_hotel()
+        try:
+            hotel.save_hotel()
+        except:
+            return {"message": "Ocorreu um erro interno"}, 500
         return hotel.json(), 201
 
     def delete(self, hotel_id):
